@@ -10,7 +10,7 @@ import java.security.SecureRandom;
 /**
  * @Project cryptography
  * @Author Montaser Sobaih
- * @Date 05-07-2020
+ * @Date 08-07-2020
  */
 
 public final class KeyGenerator implements Generator<SecretKey> {
