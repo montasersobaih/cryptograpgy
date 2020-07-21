@@ -44,6 +44,11 @@ public final class KeyGenerator implements Generator<SecretKey> {
         (this.generator = javax.crypto.KeyGenerator.getInstance(algorithm.getValue())).init(keySize, random);
     }
 
+    @Override
+    public SecretKey generate() {
+        return this.generator.generateKey();
+    }
+
     public static Optional<SecretKey> generate(KeyAlgorithm algorithm) {
         return KeyGenerator.generate(algorithm, (SecureRandom) null);
     }
@@ -90,10 +95,5 @@ public final class KeyGenerator implements Generator<SecretKey> {
         }
 
         return key;
-    }
-
-    @Override
-    public SecretKey generate() {
-        return this.generator.generateKey();
     }
 }
