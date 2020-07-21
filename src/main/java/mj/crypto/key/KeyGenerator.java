@@ -6,9 +6,6 @@ import mj.crypto.enums.KeySize;
 import javax.crypto.SecretKey;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @Project cryptography
@@ -49,51 +46,27 @@ public final class KeyGenerator implements Generator<SecretKey> {
         return this.generator.generateKey();
     }
 
-    public static Optional<SecretKey> generate(KeyAlgorithm algorithm) {
+    public static SecretKey generate(KeyAlgorithm algorithm) throws NoSuchAlgorithmException {
         return KeyGenerator.generate(algorithm, (SecureRandom) null);
     }
 
-    public static Optional<SecretKey> generate(KeyAlgorithm algorithm, SecureRandom random) {
-        Optional<SecretKey> opKey = Optional.empty();
-
-        try {
-            opKey = Optional.of(new KeyGenerator(algorithm, random).generate());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        return opKey;
+    public static SecretKey generate(KeyAlgorithm algorithm, SecureRandom random) throws NoSuchAlgorithmException {
+        return new KeyGenerator(algorithm, random).generate();
     }
 
-    public static Optional<SecretKey> generate(KeyAlgorithm algorithm, KeySize size) {
+    public static SecretKey generate(KeyAlgorithm algorithm, KeySize size) throws NoSuchAlgorithmException {
         return KeyGenerator.generate(algorithm, size.getValue());
     }
 
-    public static Optional<SecretKey> generate(KeyAlgorithm algorithm, int keySize) {
-        Optional<SecretKey> key = Optional.empty();
-
-        try {
-            key = Optional.of(new KeyGenerator(algorithm, keySize).generate());
-        } catch (NoSuchAlgorithmException e) {
-            Logger.getGlobal().log(Level.WARNING, e.getMessage());
-        }
-
-        return key;
+    public static SecretKey generate(KeyAlgorithm algorithm, int keySize) throws NoSuchAlgorithmException {
+        return new KeyGenerator(algorithm, keySize).generate();
     }
 
-    public static Optional<SecretKey> generate(KeyAlgorithm algorithm, KeySize size, SecureRandom random) {
+    public static SecretKey generate(KeyAlgorithm algorithm, KeySize size, SecureRandom random) throws NoSuchAlgorithmException {
         return KeyGenerator.generate(algorithm, size.getValue(), random);
     }
 
-    public static Optional<SecretKey> generate(KeyAlgorithm algorithm, int keySize, SecureRandom random) {
-        Optional<SecretKey> key = Optional.empty();
-
-        try {
-            key = Optional.of(new KeyGenerator(algorithm, keySize, random).generate());
-        } catch (NoSuchAlgorithmException e) {
-            Logger.getGlobal().log(Level.WARNING, e.getMessage());
-        }
-
-        return key;
+    public static SecretKey generate(KeyAlgorithm algorithm, int keySize, SecureRandom random) throws NoSuchAlgorithmException {
+        return new KeyGenerator(algorithm, keySize, random).generate();
     }
 }
